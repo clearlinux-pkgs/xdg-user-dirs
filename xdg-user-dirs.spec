@@ -4,7 +4,7 @@
 #
 Name     : xdg-user-dirs
 Version  : 0.15
-Release  : 1
+Release  : 2
 URL      : http://user-dirs.freedesktop.org/releases/xdg-user-dirs-0.15.tar.gz
 Source0  : http://user-dirs.freedesktop.org/releases/xdg-user-dirs-0.15.tar.gz
 Summary  : No detailed summary available
@@ -13,10 +13,19 @@ License  : GPL-2.0
 Requires: xdg-user-dirs-bin
 Requires: xdg-user-dirs-locales
 Requires: xdg-user-dirs-doc
+Requires: xdg-user-dirs-data
+BuildRequires : automake
+BuildRequires : automake-dev
 BuildRequires : docbook-xml
 BuildRequires : gettext
+BuildRequires : gettext-bin
+BuildRequires : libtool
+BuildRequires : libtool-dev
 BuildRequires : libxslt
+BuildRequires : m4
 BuildRequires : perl(XML::Parser)
+BuildRequires : pkg-config-dev
+Patch1: 0001-Convert-to-a-stateless-configuration.patch
 
 %description
 See info at:
@@ -25,9 +34,18 @@ http://freedesktop.org/wiki/Software/xdg-user-dirs
 %package bin
 Summary: bin components for the xdg-user-dirs package.
 Group: Binaries
+Requires: xdg-user-dirs-data
 
 %description bin
 bin components for the xdg-user-dirs package.
+
+
+%package data
+Summary: data components for the xdg-user-dirs package.
+Group: Data
+
+%description data
+data components for the xdg-user-dirs package.
 
 
 %package doc
@@ -48,11 +66,12 @@ locales components for the xdg-user-dirs package.
 
 %prep
 %setup -q -n xdg-user-dirs-0.15
+%patch1 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1483046338
-%configure --disable-static
+export SOURCE_DATE_EPOCH=1484322496
+%reconfigure --disable-static
 make V=1  %{?_smp_mflags}
 
 %check
@@ -74,6 +93,11 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 /usr/bin/xdg-user-dir
 /usr/bin/xdg-user-dirs-update
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/xdg/user-dirs.conf
+/usr/share/xdg/user-dirs.defaults
 
 %files doc
 %defattr(-,root,root,-)
