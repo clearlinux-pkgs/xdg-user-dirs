@@ -4,7 +4,7 @@
 #
 Name     : xdg-user-dirs
 Version  : 0.15
-Release  : 2
+Release  : 3
 URL      : http://user-dirs.freedesktop.org/releases/xdg-user-dirs-0.15.tar.gz
 Source0  : http://user-dirs.freedesktop.org/releases/xdg-user-dirs-0.15.tar.gz
 Summary  : No detailed summary available
@@ -26,6 +26,7 @@ BuildRequires : m4
 BuildRequires : perl(XML::Parser)
 BuildRequires : pkg-config-dev
 Patch1: 0001-Convert-to-a-stateless-configuration.patch
+Patch2: 0002-Include-an-autostart-file-to-ensure-directories-are-.patch
 
 %description
 See info at:
@@ -67,10 +68,14 @@ locales components for the xdg-user-dirs package.
 %prep
 %setup -q -n xdg-user-dirs-0.15
 %patch1 -p1
+%patch2 -p1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1484322496
+export SOURCE_DATE_EPOCH=1492800211
 %reconfigure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -78,10 +83,11 @@ make V=1  %{?_smp_mflags}
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
+export SOURCE_DATE_EPOCH=1492800211
 rm -rf %{buildroot}
 %make_install
 %find_lang xdg-user-dirs
@@ -96,6 +102,7 @@ rm -rf %{buildroot}
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/xdg/autostart/xdg-user-dirs.desktop
 /usr/share/xdg/user-dirs.conf
 /usr/share/xdg/user-dirs.defaults
 
