@@ -1,0 +1,51 @@
+From cbd1da3104a520d3668b13caf6d55c3d7064414d Mon Sep 17 00:00:00 2001
+From: Ikey Doherty <michael.i.doherty@intel.com>
+Date: Fri, 21 Apr 2017 19:40:16 +0100
+Subject: [PATCH 2/2] Include an autostart file to ensure directories are
+ created at login
+
+Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
+---
+ Makefile.am           | 5 ++++-
+ xdg-user-dirs.desktop | 9 +++++++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+ create mode 100644 xdg-user-dirs.desktop
+
+diff --git a/Makefile.am b/Makefile.am
+index 6a32983..54fdd75 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -11,11 +11,14 @@ INCLUDES =					\
+ 	$(NULL)
+ 
+ EXTRA_DIST= config.rpath translate.c autogen.sh \
+-	user-dirs.conf user-dirs.defaults xdg-user-dir
++	user-dirs.conf user-dirs.defaults xdg-user-dir xdg-user-dirs.desktop
+ 
+ xdgdir=$(datadir)/xdg
+ xdg_DATA=user-dirs.conf user-dirs.defaults
+ 
++autostartdir=$(datadir)/xdg/autostart
++autostart_DATA=xdg-user-dirs.desktop
++
+ libraries = $(LIBINTL)
+ 
+ bin_PROGRAMS =					\
+diff --git a/xdg-user-dirs.desktop b/xdg-user-dirs.desktop
+new file mode 100644
+index 0000000..7403eb8
+--- /dev/null
++++ b/xdg-user-dirs.desktop
+@@ -0,0 +1,9 @@
++[Desktop Entry]
++Name=Update XDG user directories
++Comment=Update XDG user directories
++Exec=/usr/bin/xdg-user-dirs-update
++Terminal=false
++Type=Application
++Categories=
++NoDisplay=true
++OnlyShowIn=GNOME;XFCE;Unity;MATE;
+-- 
+2.12.2
+
