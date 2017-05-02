@@ -4,7 +4,7 @@
 #
 Name     : xdg-user-dirs
 Version  : 0.15
-Release  : 3
+Release  : 4
 URL      : http://user-dirs.freedesktop.org/releases/xdg-user-dirs-0.15.tar.gz
 Source0  : http://user-dirs.freedesktop.org/releases/xdg-user-dirs-0.15.tar.gz
 Summary  : No detailed summary available
