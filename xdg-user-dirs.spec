@@ -4,7 +4,7 @@
 #
 Name     : xdg-user-dirs
 Version  : 0.17
-Release  : 10
+Release  : 11
 URL      : https://user-dirs.freedesktop.org/releases/xdg-user-dirs-0.17.tar.gz
 Source0  : https://user-dirs.freedesktop.org/releases/xdg-user-dirs-0.17.tar.gz
 Summary  : Manage user directories like ~/Desktop and ~/Music
