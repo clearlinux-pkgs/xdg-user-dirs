@@ -1,32 +1,33 @@
-From b31746ed8e1c7891dc309268619e8401d62a7820 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Ikey Doherty <ikey@solus-project.com>
 Date: Sat, 11 Jul 2015 14:29:42 +0100
-Subject: [PATCH 1/2] Convert to a stateless configuration
+Subject: [PATCH] Convert to a stateless configuration
 
 Signed-off-by: Ikey Doherty <ikey@solus-project.com>
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
 ---
  Makefile.am            | 2 +-
  xdg-user-dirs-update.c | 2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile.am b/Makefile.am
-index c01c54f..6a32983 100644
+index f649564..f98daf0 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -13,7 +13,7 @@ INCLUDES =					\
+@@ -16,7 +16,7 @@ INCLUDES =					\
  EXTRA_DIST= config.rpath translate.c autogen.sh \
- 	user-dirs.conf user-dirs.defaults xdg-user-dir
+ 	user-dirs.conf user-dirs.defaults xdg-user-dir xdg-user-dirs.desktop
  
 -xdgdir=$(sysconfdir)/xdg
 +xdgdir=$(datadir)/xdg
  xdg_DATA=user-dirs.conf user-dirs.defaults
  
- libraries = $(LIBINTL)
+ xdgautostartdir=$(xdgdir)/autostart
 diff --git a/xdg-user-dirs-update.c b/xdg-user-dirs-update.c
-index d468a8c..369887b 100644
+index 6a99db0..68e7129 100644
 --- a/xdg-user-dirs-update.c
 +++ b/xdg-user-dirs-update.c
-@@ -397,7 +397,7 @@ get_config_files (char *filename)
+@@ -405,7 +405,7 @@ get_config_files (char *filename)
    if (config_dirs)
      config_paths = parse_colon_separated_dirs (config_dirs);
    else
@@ -35,6 +36,3 @@ index d468a8c..369887b 100644
  
    for (i = 0; config_paths[i] != NULL; i++)
      {
--- 
-2.12.2
-

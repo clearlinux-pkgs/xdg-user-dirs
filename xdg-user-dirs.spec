@@ -4,7 +4,7 @@
 #
 Name     : xdg-user-dirs
 Version  : 0.17
-Release  : 12
+Release  : 13
 URL      : https://user-dirs.freedesktop.org/releases/xdg-user-dirs-0.17.tar.gz
 Source0  : https://user-dirs.freedesktop.org/releases/xdg-user-dirs-0.17.tar.gz
 Summary  : No detailed summary available
@@ -27,6 +27,7 @@ BuildRequires : m4
 BuildRequires : perl(XML::Parser)
 BuildRequires : pkg-config-dev
 Patch1: 0001-Convert-to-a-stateless-configuration.patch
+Patch2: 0002-Fix-compability-with-autoconf-2.70.patch
 
 %description
 See info at:
@@ -78,13 +79,14 @@ man components for the xdg-user-dirs package.
 %setup -q -n xdg-user-dirs-0.17
 cd %{_builddir}/xdg-user-dirs-0.17
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604599438
+export SOURCE_DATE_EPOCH=1608259576
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -104,7 +106,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1604599438
+export SOURCE_DATE_EPOCH=1608259576
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/xdg-user-dirs
 cp %{_builddir}/xdg-user-dirs-0.17/COPYING %{buildroot}/usr/share/package-licenses/xdg-user-dirs/dfac199a7539a404407098a2541b9482279f690d
